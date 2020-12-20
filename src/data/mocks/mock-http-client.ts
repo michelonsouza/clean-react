@@ -7,16 +7,16 @@ import {
   HttpPostClient,
 } from '@/data/protocols/http/http-post-client';
 
-export class HttpPostClientSpy implements HttpPostClient {
+export class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
   url?: string;
 
-  body?: Record<string, unknown>;
+  body?: T;
 
-  response: HttpResponse = {
+  response: HttpResponse<R> = {
     statusCode: HttpStatusCode.ok,
   };
 
-  async post({ url, body }: HttpPostParams): Promise<HttpResponse> {
+  async post({ url, body }: HttpPostParams<T>): Promise<HttpResponse<R>> {
     this.url = url;
     this.body = body;
 

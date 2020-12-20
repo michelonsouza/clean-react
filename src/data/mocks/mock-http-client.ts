@@ -1,4 +1,8 @@
 import {
+  HttpResponse,
+  HttpStatusCode,
+} from '@/data/protocols/http/http-response';
+import {
   HttpPostParams,
   HttpPostClient,
 } from '@/data/protocols/http/http-post-client';
@@ -8,10 +12,14 @@ export class HttpPostClientSpy implements HttpPostClient {
 
   body?: Record<string, unknown>;
 
-  async post({ url, body }: HttpPostParams): Promise<void> {
+  response: HttpResponse = {
+    statusCode: HttpStatusCode.noContent,
+  };
+
+  async post({ url, body }: HttpPostParams): Promise<HttpResponse> {
     this.url = url;
     this.body = body;
 
-    return Promise.resolve();
+    return this.response;
   }
 }

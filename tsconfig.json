@@ -23,7 +23,10 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "rootDir": "src",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "src/**/*"

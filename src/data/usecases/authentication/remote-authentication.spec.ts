@@ -1,15 +1,11 @@
 import faker from 'faker';
 
-import { AccountModel } from '@/domain/models/account-model';
-import { AuthenticationParams } from '@/domain/usecases/authentication';
-import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
-import { UnexpectedError } from '@/domain/errors/unexpected-error';
-import {
-  mockAuthentication,
-  mockAccountModel,
-} from '@/domain/mocks/mock-account';
-import { HttpPostClientSpy } from '@/data/mocks/mock-http-client';
-import { HttpStatusCode } from '@/data/protocols/http/http-response';
+import { AccountModel } from '@/domain/models';
+import { AuthenticationParams } from '@/domain/usecases';
+import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
+import { mockAuthentication, mockAccountModel } from '@/domain/mocks';
+import { HttpPostClientSpy } from '@/data/mocks';
+import { HttpStatusCode } from '@/data/protocols/http';
 
 import { RemoteAuthentication } from './remote-authentication';
 

@@ -5,12 +5,12 @@ module.exports = {
   roots: ['<rootDir>/src'],
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
   coverageDirectory: 'coverage',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/src/',
   }),
   preset: 'ts-jest',
   transform: {
-    '.+\\.ts$': 'ts-jest',
+    '.+\\.(ts|tsx)$': 'ts-jest',
   },
 };

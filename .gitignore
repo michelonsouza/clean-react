@@ -4,6 +4,7 @@ node_modules
 build
 dist
 coverage
+public/js
 
 # files
 .env

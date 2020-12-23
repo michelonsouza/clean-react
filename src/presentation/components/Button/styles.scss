@@ -1,0 +1,32 @@
+@import '../../styles/colors';
+
+.spinner-space {
+  margin: 10px auto 0;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary;
+  color: $white;
+  border-radius: 8px;
+  transition: all 200ms ease;
+  font-size: 16px;
+  border: 0;
+  outline: 0;
+  line-height: 60px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  height: 60px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &[disabled] {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,32 @@
+@import '../../styles/colors';
+
+.inputWrap {
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  .status {
+    position: absolute;
+    right: 8px;
+    font-size: 12px;
+    cursor: help;
+  }
+
+  & > .input {
+    flex: 1;
+    padding-left: 8px;
+    padding-right: 24px;
+
+    &[type="password"],
+    &[type="email"] {
+      border: 1px solid $primaryLight;
+      line-height: 40px;
+      border-radius: 4px;
+
+      &:focus,
+      &:active {
+        outline-color: $primaryLight;
+      }
+    }
+  }
+}

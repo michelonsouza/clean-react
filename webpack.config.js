@@ -1,9 +1,11 @@
 const {resolve} = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   entry: './src/main/index.tsx',
+  devtool: 'inline-source-map',
   output: {
     path: resolve(__dirname, 'public', 'js'),
     publicPath: resolve(__dirname, 'public', 'js'),
@@ -11,14 +13,16 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.scss'],
-    alias: {
-      '@': resolve(__dirname, 'src'),
-    },
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: resolve(__dirname, 'tsconfig.json'),
+      }),
+    ]
   },
   module: {
     rules: [
       {
-        test: /\.ts(x?)$/,
+        test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -43,8 +47,12 @@ module.exports = {
   },
   devServer: {
     contentBase: resolve(__dirname, 'public'),
-    writeToDisc: true,
+    writeToDisk: true,
+    compress: true,
     historyApiFallback: true,
+    port: 3000,
+    open: true,
+    liveReload: true,
   },
   externals: {
     react: 'React',

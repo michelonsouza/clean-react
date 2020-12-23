@@ -3,12 +3,13 @@ const { compilerOptions } = require('./tsconfig.json');
 
 module.exports = {
   roots: ['<rootDir>/src'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}', '!**/*.d.ts'],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/src/',
-  }),
+  moduleNameMapper: {
+    '@/(.*)': '<rootDir>/src/$1',
+    '\\.scss$': 'identity-obj-proxy',
+  },
   preset: 'ts-jest',
   transform: {
     '.+\\.(ts|tsx)$': 'ts-jest',

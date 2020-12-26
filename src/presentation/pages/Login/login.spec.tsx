@@ -17,4 +17,15 @@ describe('Login Page', () => {
 
     expect(submitButton.disabled).toBe(true);
   });
+
+  it('should be input status as required on start', () => {
+    const { getByTestId } = render(<Login />);
+    const emailStatus = getByTestId('email-status');
+    const passwordStatus = getByTestId('password-status');
+
+    expect(emailStatus.title).toBe('Campo obrigatório');
+    expect(emailStatus.textContent).toBe('🔴');
+    expect(passwordStatus.title).toBe('Campo obrigatório');
+    expect(passwordStatus.textContent).toBe('🔴');
+  });
 });

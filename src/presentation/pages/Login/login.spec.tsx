@@ -16,9 +16,9 @@ type SutTypes = {
   validationSpy: ValidationSpy;
 };
 
-const makeSut = (): SutTypes => {
+const makeSut = (errorMessage = ''): SutTypes => {
   const validationSpy = new ValidationSpy();
-  validationSpy.errorMessage = faker.random.words();
+  validationSpy.errorMessage = errorMessage;
 
   const sut = render(<Login validation={validationSpy} />);
 
@@ -40,10 +40,10 @@ describe('Login Page', () => {
     expect(errorWrap.childElementCount).toBe(0);
   });
 
-  it('should be desabled button on start', () => {
+  it('should be disabled button on start', () => {
     const {
       sut: { getByTestId },
-    } = makeSut();
+    } = makeSut(faker.random.words());
     const submitButton = getByTestId('submit-button') as HTMLButtonElement;
 
     expect(submitButton.disabled).toBe(true);
@@ -53,7 +53,7 @@ describe('Login Page', () => {
     const {
       sut: { getByTestId },
       validationSpy,
-    } = makeSut();
+    } = makeSut(faker.random.words());
     const emailStatus = getByTestId('email-status');
     const passwordStatus = getByTestId('password-status');
 
@@ -97,7 +97,7 @@ describe('Login Page', () => {
     const {
       sut: { getByTestId },
       validationSpy,
-    } = makeSut();
+    } = makeSut(faker.random.words());
     const emailInput = getByTestId('email');
 
     fireEvent.input(emailInput, { target: { value: faker.internet.email() } });
@@ -112,7 +112,7 @@ describe('Login Page', () => {
     const {
       sut: { getByTestId },
       validationSpy,
-    } = makeSut();
+    } = makeSut(faker.random.words());
     const passwordInput = getByTestId('password');
 
     fireEvent.input(passwordInput, {
@@ -128,10 +128,8 @@ describe('Login Page', () => {
   it('should show valid state if email Validation success', () => {
     const {
       sut: { getByTestId },
-      validationSpy,
     } = makeSut();
     const emailInput = getByTestId('email');
-    validationSpy.errorMessage = '';
 
     fireEvent.input(emailInput, {
       target: { value: faker.internet.email() },
@@ -146,11 +144,8 @@ describe('Login Page', () => {
   it('should show valid state if password Validation success', () => {
     const {
       sut: { getByTestId },
-      validationSpy,
     } = makeSut();
     const passwordInput = getByTestId('password');
-
-    validationSpy.errorMessage = '';
 
     fireEvent.input(passwordInput, {
       target: { value: faker.internet.password() },
@@ -165,9 +160,7 @@ describe('Login Page', () => {
   it('should enable submit button if form is valid', () => {
     const {
       sut: { getByTestId },
-      validationSpy,
     } = makeSut();
-    validationSpy.errorMessage = '';
     const passwordInput = getByTestId('password');
     const emailInput = getByTestId('email');
 

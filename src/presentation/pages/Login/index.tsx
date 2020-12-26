@@ -11,21 +11,21 @@ import { FormContext } from '@/presentation/contexts';
 
 import classes from './styles.scss';
 
-export interface StateProps {
-  isLoading: boolean;
-  errorMessage: string;
-}
-
 const Login: React.FC = () => {
-  const [state, setState] = useState<StateProps>({
+  const [state, setState] = useState({
     isLoading: false,
-    errorMessage: '',
+  });
+
+  const [errorState] = useState({
+    email: 'Campo obrigatório',
+    password: 'Campo obrigatório',
+    main: '',
   });
 
   return (
     <div className={classes.login}>
       <LoginHeader />
-      <FormContext.Provider value={state}>
+      <FormContext.Provider value={{ state, errorState }}>
         <form className={classes.form}>
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />

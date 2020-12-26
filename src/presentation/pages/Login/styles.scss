@@ -1,24 +1,5 @@
 @import '../../styles/colors';
 
-* {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  box-sizing: border-box;
-  font-size: 14px;
-  -webkit-font-smoothing: antialiased !important;
-}
-
-body, html, #app {
-  min-height: 100vh;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-body {
-  background-color: $background;
-}
-
 .login {
   display: flex;
   flex-direction: column;

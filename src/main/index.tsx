@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Login } from '@/presentation/pages';
+import Router from '@/presentation/router';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Login />
+    <Router />
   </React.StrictMode>,
   document.getElementById('app'),
 );

@@ -82,6 +82,17 @@ body {
         text-decoration: underline;
       }
     }
+
+    .errorWrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .error {
+        margin-top: 30px;
+        color: $primaryLight;
+      }
+    }
   }
 
   .footer {

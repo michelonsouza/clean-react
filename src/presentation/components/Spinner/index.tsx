@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
 import classes from './styles.scss';
 
-interface LoadingProps {
+interface SpinnerProps extends HTMLAttributes<HTMLDivElement> {
   variant?: 'primary' | 'secondary' | 'info';
-  className?: string;
 }
 
-const Loading: React.FC<LoadingProps> = ({ variant, className }) => {
+const Spinner: React.FC<SpinnerProps> = ({ variant, className }) => {
   return (
     <div className={`${classes.spinner} ${className || ''}`}>
       <div
@@ -21,4 +20,4 @@ const Loading: React.FC<LoadingProps> = ({ variant, className }) => {
   );
 };
 
-export default Loading;
+export default Spinner;

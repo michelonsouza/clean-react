@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
-import Loading from '../Loading';
+import Spinner from '../Spinner';
 
 import classes from './styles.scss';
 
@@ -13,9 +13,15 @@ const Button: React.FC<ButtonProps> = React.forwardRef<
   ButtonProps
 >(({ loading, children, ...rest }, ref) => {
   return (
-    <button className={classes.button} ref={ref} type="button" {...rest}>
+    <button
+      className={classes.button}
+      ref={ref}
+      type="button"
+      {...rest}
+      disabled={loading}
+    >
       {loading ? (
-        <Loading className={classes['spinner-space']} />
+        <Spinner className={classes['spinner-space']} />
       ) : (
         <>{children}</>
       )}

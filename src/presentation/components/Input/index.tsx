@@ -2,9 +2,11 @@ import React, { InputHTMLAttributes, memo } from 'react';
 
 import classes from './styles.scss';
 
-const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = React.forwardRef<
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
+
+const Input: React.FC<InputProps> = React.forwardRef<
   HTMLInputElement,
-  InputHTMLAttributes<HTMLInputElement>
+  InputProps
 >(({ ...rest }, ref) => {
   return (
     <div className={classes.inputWrap}>

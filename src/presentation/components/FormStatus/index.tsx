@@ -11,7 +11,7 @@ const FormStatus: React.FC<FormStatusProps> = React.forwardRef<
   FormStatusProps
 >(({ className, ...rest }, ref) => {
   const {
-    errorState: { main },
+    state: { mainError },
   } = useContext(FormContext);
 
   return (
@@ -21,7 +21,7 @@ const FormStatus: React.FC<FormStatusProps> = React.forwardRef<
       className={[classes.errorWrap, className].join(' ')}
       {...rest}
     >
-      {main && <span className={classes.error}>{main}</span>}
+      {mainError && <span className={classes.error}>{mainError}</span>}
     </div>
   );
 });

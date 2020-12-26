@@ -16,14 +16,14 @@ const Input: React.FC<InputProps> = React.forwardRef<
   HTMLInputElement,
   InputProps
 >(({ name, ...rest }, ref) => {
-  const { errorState } = useContext(FormContext);
-  const error = name ? errorState[name] : undefined;
+  const { state, setState } = useContext(FormContext);
+  const error = name ? state[`${name}Error`] : undefined;
 
   const statusContent = useMemo(() => {
     return error ? '🔴' : '🟢';
   }, [error]);
 
-  const testId = useMemo(() => {
+  const stattusTestId = useMemo(() => {
     return `${name}-status`;
   }, [name]);
 
@@ -41,20 +41,38 @@ const Input: React.FC<InputProps> = React.forwardRef<
     [],
   );
 
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setState((oldState: any) => {
+        return {
+          ...oldState,
+          [event.target.name]: event.target.value,
+        };
+      });
+    },
+    [setState],
+  );
+
   return (
     <div className={classes.inputWrap}>
       <input
         ref={ref}
         className={classes.input}
         name={name}
+        data-testid={name}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onChange={handleChange}
         readOnly
         type="text"
         {...rest}
       />
 
-      <span data-testid={testId} title={error} className={classes.status}>
+      <span
+        data-testid={stattusTestId}
+        title={error}
+        className={classes.status}
+      >
         {statusContent}
       </span>
     </div>

@@ -20,6 +20,7 @@ const Login: React.FC<LoginProps> = ({ validation }) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
+    password: '',
     emailError: 'Campo obrigatório',
     passwordError: 'Campo obrigatório',
     mainError: '',
@@ -28,6 +29,10 @@ const Login: React.FC<LoginProps> = ({ validation }) => {
   useEffect(() => {
     validation.validate({ email: state.email });
   }, [state.email, validation]);
+
+  useEffect(() => {
+    validation.validate({ password: state.password });
+  }, [state.password, validation]);
 
   return (
     <div className={classes.login}>

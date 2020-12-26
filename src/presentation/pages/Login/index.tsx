@@ -13,11 +13,13 @@ import classes from './styles.scss';
 
 export interface StateProps {
   isLoading: boolean;
+  errorMessage: string;
 }
 
 const Login: React.FC = () => {
   const [state, setState] = useState<StateProps>({
     isLoading: false,
+    errorMessage: '',
   });
 
   return (
@@ -33,7 +35,9 @@ const Login: React.FC = () => {
             placeholder="Digite sua senha"
           />
 
-          <Button type="submit">Entrar</Button>
+          <Button type="submit" disabled>
+            Entrar
+          </Button>
 
           <span className={classes.link}>Criar conta</span>
 

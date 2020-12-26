@@ -11,14 +11,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = React.forwardRef<
   HTMLButtonElement,
   ButtonProps
->(({ loading, children, ...rest }, ref) => {
+>(({ loading, children, disabled, ...rest }, ref) => {
   return (
     <button
+      data-testid="button"
       className={classes.button}
       ref={ref}
       type="button"
       {...rest}
-      disabled={loading}
+      disabled={disabled || loading}
     >
       {loading ? (
         <Spinner className={classes['spinner-space']} />

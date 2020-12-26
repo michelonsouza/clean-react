@@ -44,7 +44,7 @@ describe('Login Page', () => {
     const {
       sut: { getByTestId },
     } = makeSut();
-    const submitButton = getByTestId('button') as HTMLButtonElement;
+    const submitButton = getByTestId('submit-button') as HTMLButtonElement;
 
     expect(submitButton.disabled).toBe(true);
   });
@@ -149,6 +149,7 @@ describe('Login Page', () => {
       validationSpy,
     } = makeSut();
     const passwordInput = getByTestId('password');
+
     validationSpy.errorMessage = '';
 
     fireEvent.input(passwordInput, {
@@ -159,5 +160,27 @@ describe('Login Page', () => {
 
     expect(passwordStatus.title).toBe('Tudo certo');
     expect(passwordStatus.textContent).toBe('🟢');
+  });
+
+  it('should enable submit button if form is valid', () => {
+    const {
+      sut: { getByTestId },
+      validationSpy,
+    } = makeSut();
+    validationSpy.errorMessage = '';
+    const passwordInput = getByTestId('password');
+    const emailInput = getByTestId('email');
+
+    fireEvent.input(emailInput, {
+      target: { value: faker.internet.email() },
+    });
+
+    fireEvent.input(passwordInput, {
+      target: { value: faker.internet.password() },
+    });
+
+    const button = getByTestId('submit-button') as HTMLButtonElement;
+
+    expect(button.disabled).toBe(false);
   });
 });

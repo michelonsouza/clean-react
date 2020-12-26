@@ -22,7 +22,9 @@ type SutTypes = {
   authenticationSpy: AuthenticationSpy;
 };
 
-const history = createMemoryHistory();
+const history = createMemoryHistory({
+  initialEntries: ['/login'],
+});
 
 const makeSut = (errorMessage = ''): SutTypes => {
   const validationSpy = new ValidationSpy();
@@ -231,6 +233,9 @@ describe('Login Page', () => {
       'accessToken',
       authenticationSpy.account.accessToken,
     );
+
+    expect(history.length).toBe(1);
+    expect(history.location.pathname).toBe('/');
   });
 
   it('should go to signup page', async () => {

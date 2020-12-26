@@ -7,7 +7,7 @@ export class ValidationSpy implements Validation {
 
   fieldValue = '';
 
-  validate(fieldName: string, fieldValue: string): string | null {
+  validate(fieldName: string, fieldValue: string): string {
     this.fieldName = fieldName;
     this.fieldValue = fieldValue;
 

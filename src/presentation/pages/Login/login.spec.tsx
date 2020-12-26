@@ -157,7 +157,7 @@ describe('Login Page', () => {
     expect(passwordStatus.textContent).toBe('🟢');
   });
 
-  it('should enable submit button if form is valid', () => {
+  it('should show spinner on submit', () => {
     const {
       sut: { getByTestId },
     } = makeSut();
@@ -172,8 +172,12 @@ describe('Login Page', () => {
       target: { value: faker.internet.password() },
     });
 
-    const button = getByTestId('submit-button') as HTMLButtonElement;
+    const button = getByTestId('submit-button');
 
-    expect(button.disabled).toBe(false);
+    fireEvent.click(button);
+
+    const spinner = getByTestId('spinner-loading');
+
+    expect(spinner).toBeTruthy();
   });
 });

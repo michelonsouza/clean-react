@@ -32,20 +32,6 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
     return !!(state.emailError || state.passwordError);
   }, [state.emailError, state.passwordError]);
 
-  useEffect(() => {
-    setState(oldState => ({
-      ...oldState,
-      emailError: validation.validate('email', state.email),
-    }));
-  }, [state.email, validation]);
-
-  useEffect(() => {
-    setState(oldState => ({
-      ...oldState,
-      passwordError: validation.validate('password', state.password),
-    }));
-  }, [state.password, validation]);
-
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
       event.preventDefault();
@@ -62,6 +48,20 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
     },
     [authentication, state.email, state.password],
   );
+
+  useEffect(() => {
+    setState(oldState => ({
+      ...oldState,
+      emailError: validation.validate('email', state.email),
+    }));
+  }, [state.email, validation]);
+
+  useEffect(() => {
+    setState(oldState => ({
+      ...oldState,
+      passwordError: validation.validate('password', state.password),
+    }));
+  }, [state.password, validation]);
 
   return (
     <div className={classes.login}>

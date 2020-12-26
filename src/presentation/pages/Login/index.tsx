@@ -36,7 +36,7 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
     async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
       event.preventDefault();
 
-      if (state.isLoading) {
+      if (state.isLoading || state.emailError || state.passwordError) {
         return;
       }
 
@@ -50,7 +50,14 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
         password: state.password,
       });
     },
-    [authentication, state.email, state.password],
+    [
+      authentication,
+      state.email,
+      state.password,
+      state.isLoading,
+      state.passwordError,
+      state.emailError,
+    ],
   );
 
   useEffect(() => {
@@ -71,7 +78,11 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
     <div className={classes.login}>
       <LoginHeader />
       <FormContext.Provider value={{ state, setState }}>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form
+          data-testid="login-form"
+          className={classes.form}
+          onSubmit={handleSubmit}
+        >
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
           <Input

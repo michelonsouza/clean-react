@@ -23,6 +23,10 @@ const Input: React.FC<InputProps> = React.forwardRef<
     return error ? '🔴' : '🟢';
   }, [error]);
 
+  const statusTitle = useMemo(() => {
+    return error || 'Tudo certo';
+  }, [error]);
+
   const stattusTestId = useMemo(() => {
     return `${name}-status`;
   }, [name]);
@@ -70,7 +74,7 @@ const Input: React.FC<InputProps> = React.forwardRef<
 
       <span
         data-testid={stattusTestId}
-        title={error}
+        title={statusTitle}
         className={classes.status}
       >
         {statusContent}

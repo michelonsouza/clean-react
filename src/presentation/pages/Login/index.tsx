@@ -63,7 +63,14 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
         }));
       }
     },
-    [authentication, state.email, state.password, state.isLoading, isDisabled],
+    [
+      authentication,
+      state.email,
+      state.password,
+      state.isLoading,
+      isDisabled,
+      history,
+    ],
   );
 
   useEffect(() => {

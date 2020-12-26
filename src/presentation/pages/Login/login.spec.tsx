@@ -10,4 +10,11 @@ describe('Login Page', () => {
 
     expect(errorWrap.childElementCount).toBe(0);
   });
+
+  it('should be desabled button on start', () => {
+    const { getByTestId } = render(<Login />);
+    const submitButton = getByTestId('button') as HTMLButtonElement;
+
+    expect(submitButton.disabled).toBe(true);
+  });
 });

@@ -18,6 +18,8 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
+  validationSpy.errorMessage = faker.random.words();
+
   const sut = render(<Login validation={validationSpy} />);
 
   return {
@@ -50,11 +52,12 @@ describe('Login Page', () => {
   it('should be input status as required on start', () => {
     const {
       sut: { getByTestId },
+      validationSpy,
     } = makeSut();
     const emailStatus = getByTestId('email-status');
     const passwordStatus = getByTestId('password-status');
 
-    expect(emailStatus.title).toBe('Campo obrigatório');
+    expect(emailStatus.title).toBe(validationSpy.errorMessage);
     expect(emailStatus.textContent).toBe('🔴');
     expect(passwordStatus.title).toBe('Campo obrigatório');
     expect(passwordStatus.textContent).toBe('🔴');
@@ -88,5 +91,20 @@ describe('Login Page', () => {
 
     expect(validationSpy.fieldName).toBe('password');
     expect(validationSpy.fieldValue).toBe(password);
+  });
+
+  it('should email error if validation fails', () => {
+    const {
+      sut: { getByTestId },
+      validationSpy,
+    } = makeSut();
+    const emailInput = getByTestId('email');
+
+    fireEvent.input(emailInput, { target: { value: faker.internet.email() } });
+
+    const emailStatus = getByTestId('email-status');
+
+    expect(emailStatus.title).toBe(validationSpy.errorMessage);
+    expect(emailStatus.textContent).toBe('🔴');
   });
 });

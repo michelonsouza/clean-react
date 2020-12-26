@@ -36,19 +36,27 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
     async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
       event.preventDefault();
 
-      if (state.isLoading || isDisabled) {
-        return;
+      try {
+        if (state.isLoading || isDisabled) {
+          return;
+        }
+
+        setState(oldState => ({
+          ...oldState,
+          isLoading: true,
+        }));
+
+        await authentication.auth({
+          email: state.email,
+          password: state.password,
+        });
+      } catch (error) {
+        setState(oldState => ({
+          ...oldState,
+          isLoading: false,
+          mainError: error.message,
+        }));
       }
-
-      setState(oldState => ({
-        ...oldState,
-        isLoading: true,
-      }));
-
-      await authentication.auth({
-        email: state.email,
-        password: state.password,
-      });
     },
     [authentication, state.email, state.password, state.isLoading, isDisabled],
   );

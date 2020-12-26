@@ -21,7 +21,11 @@ const FormStatus: React.FC<FormStatusProps> = React.forwardRef<
       className={[classes.errorWrap, className].join(' ')}
       {...rest}
     >
-      {mainError && <span className={classes.error}>{mainError}</span>}
+      {mainError && (
+        <span data-testid="main-error" className={classes.error}>
+          {mainError}
+        </span>
+      )}
     </div>
   );
 });

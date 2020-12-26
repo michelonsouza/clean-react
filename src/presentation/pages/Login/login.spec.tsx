@@ -59,7 +59,7 @@ describe('Login Page', () => {
 
     expect(emailStatus.title).toBe(validationSpy.errorMessage);
     expect(emailStatus.textContent).toBe('🔴');
-    expect(passwordStatus.title).toBe('Campo obrigatório');
+    expect(passwordStatus.title).toBe(validationSpy.errorMessage);
     expect(passwordStatus.textContent).toBe('🔴');
   });
 
@@ -106,5 +106,22 @@ describe('Login Page', () => {
 
     expect(emailStatus.title).toBe(validationSpy.errorMessage);
     expect(emailStatus.textContent).toBe('🔴');
+  });
+
+  it('should password error if validation fails', () => {
+    const {
+      sut: { getByTestId },
+      validationSpy,
+    } = makeSut();
+    const passwordInput = getByTestId('password');
+
+    fireEvent.input(passwordInput, {
+      target: { value: faker.internet.password() },
+    });
+
+    const passwordStatus = getByTestId('password-status');
+
+    expect(passwordStatus.title).toBe(validationSpy.errorMessage);
+    expect(passwordStatus.textContent).toBe('🔴');
   });
 });

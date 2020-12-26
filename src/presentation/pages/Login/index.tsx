@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { Input, Button, LoginHeader, Footer } from '@/presentation/components';
+import {
+  Input,
+  Button,
+  LoginHeader,
+  Footer,
+  FormStatus,
+} from '@/presentation/components';
 
 import classes from './styles.scss';
 
@@ -17,9 +23,7 @@ const Login: React.FC = () => {
 
         <span className={classes.link}>Criar conta</span>
 
-        <div className={classes.errorWrap}>
-          <span className={classes.error}>Erro</span>
-        </div>
+        <FormStatus />
       </form>
       <Footer />
     </div>

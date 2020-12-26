@@ -22,7 +22,10 @@ const Button: React.FC<ButtonProps> = React.forwardRef<
       disabled={disabled || loading}
     >
       {loading ? (
-        <Spinner className={classes['spinner-space']} />
+        <Spinner
+          data-testid="spinner-loading"
+          className={classes['spinner-space']}
+        />
       ) : (
         <>{children}</>
       )}

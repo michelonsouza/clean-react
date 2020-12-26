@@ -6,9 +6,9 @@ interface SpinnerProps extends HTMLAttributes<HTMLDivElement> {
   variant?: 'primary' | 'secondary' | 'info';
 }
 
-const Spinner: React.FC<SpinnerProps> = ({ variant, className }) => {
+const Spinner: React.FC<SpinnerProps> = ({ variant, className, ...rest }) => {
   return (
-    <div className={`${classes.spinner} ${className || ''}`}>
+    <div className={`${classes.spinner} ${className || ''}`} {...rest}>
       <div
         className={`${classes.bounce1} ${variant ? classes[variant] : ''}`}
       />

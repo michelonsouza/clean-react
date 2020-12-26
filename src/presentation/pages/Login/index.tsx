@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 import {
   Input,
@@ -44,11 +44,23 @@ const Login: React.FC<LoginProps> = ({ validation }) => {
     }));
   }, [state.password, validation]);
 
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      setState(oldState => ({
+        ...oldState,
+        isLoading: true,
+      }));
+    },
+    [],
+  );
+
   return (
     <div className={classes.login}>
       <LoginHeader />
       <FormContext.Provider value={{ state, setState }}>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
           <Input
@@ -61,6 +73,7 @@ const Login: React.FC<LoginProps> = ({ validation }) => {
             type="submit"
             data-testid="submit-button"
             disabled={isDisabled}
+            loading={state.isLoading}
           >
             Entrar
           </Button>

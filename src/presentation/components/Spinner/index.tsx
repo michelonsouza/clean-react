@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, memo } from 'react';
 
 import classes from './styles.scss';
 
@@ -20,4 +20,4 @@ const Spinner: React.FC<SpinnerProps> = ({ variant, className }) => {
   );
 };
 
-export default Spinner;
+export default memo(Spinner);

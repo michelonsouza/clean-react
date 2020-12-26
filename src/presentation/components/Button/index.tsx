@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes, memo } from 'react';
 
 import Spinner from '../Spinner';
 
@@ -29,4 +29,4 @@ const Button: React.FC<ButtonProps> = React.forwardRef<
   );
 });
 
-export default Button;
+export default memo(Button);

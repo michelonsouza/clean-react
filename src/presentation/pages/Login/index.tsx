@@ -1,16 +1,13 @@
 import React from 'react';
 
-import { Logo, Input, Button } from '@/presentation/components';
+import { Input, Button, LoginHeader, Footer } from '@/presentation/components';
 
 import classes from './styles.scss';
 
 const Login: React.FC = () => {
   return (
     <div className={classes.login}>
-      <header className={classes.header}>
-        <Logo />
-        <h1>4Dev - Enquetes para Programadores</h1>
-      </header>
+      <LoginHeader />
       <form className={classes.form}>
         <h2>Login</h2>
         <Input type="email" name="email" placeholder="Digite seu e-mail" />
@@ -24,7 +21,7 @@ const Login: React.FC = () => {
           <span className={classes.error}>Erro</span>
         </div>
       </form>
-      <footer className={classes.footer} />
+      <Footer />
     </div>
   );
 };

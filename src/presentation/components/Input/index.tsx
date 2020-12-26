@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, memo } from 'react';
 
 import classes from './styles.scss';
 
@@ -14,4 +14,4 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = React.forwardRef<
   );
 });
 
-export default Input;
+export default memo(Input);

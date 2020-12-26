@@ -1,4 +1,4 @@
-import React, { ImgHTMLAttributes } from 'react';
+import React, { ImgHTMLAttributes, memo } from 'react';
 
 type LogoProps = ImgHTMLAttributes<HTMLImageElement>;
 
@@ -15,4 +15,4 @@ const Logo: React.FC<LogoProps> = React.forwardRef<HTMLImageElement, LogoProps>(
   },
 );
 
-export default Logo;
+export default memo(Logo);

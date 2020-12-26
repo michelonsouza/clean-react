@@ -1,4 +1,6 @@
-import React, { HTMLAttributes, memo } from 'react';
+import React, { HTMLAttributes, memo, useContext } from 'react';
+
+import { FormContext } from '@/presentation/contexts';
 
 import classes from './styles.scss';
 
@@ -8,13 +10,16 @@ const FormStatus: React.FC<FormStatusProps> = React.forwardRef<
   HTMLDivElement,
   FormStatusProps
 >(({ className, ...rest }, ref) => {
+  const { errorMessage } = useContext(FormContext);
+
   return (
     <div
+      data-testid="error-wrap"
       ref={ref}
       className={[classes.errorWrap, className].join(' ')}
       {...rest}
     >
-      <span className={classes.error}>Erro</span>
+      {errorMessage && <span className={classes.error}>{errorMessage}</span>}
     </div>
   );
 });

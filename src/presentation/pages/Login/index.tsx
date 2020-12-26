@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
+import { Authentication } from '@/domain/usecases';
 import {
   Input,
   Button,
@@ -14,9 +15,10 @@ import classes from './styles.scss';
 
 interface LoginProps {
   validation: Validation;
+  authentication: Authentication;
 }
 
-const Login: React.FC<LoginProps> = ({ validation }) => {
+const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -45,15 +47,20 @@ const Login: React.FC<LoginProps> = ({ validation }) => {
   }, [state.password, validation]);
 
   const handleSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
+    async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
       event.preventDefault();
 
       setState(oldState => ({
         ...oldState,
         isLoading: true,
       }));
+
+      await authentication.auth({
+        email: state.email,
+        password: state.password,
+      });
     },
-    [],
+    [authentication, state.email, state.password],
   );
 
   return (

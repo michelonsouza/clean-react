@@ -1,4 +1,6 @@
 import React from 'react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import {
   render,
   fireEvent,
@@ -20,13 +22,17 @@ type SutTypes = {
   authenticationSpy: AuthenticationSpy;
 };
 
+const history = createMemoryHistory();
+
 const makeSut = (errorMessage = ''): SutTypes => {
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
   validationSpy.errorMessage = errorMessage;
 
   const sut = render(
-    <Login validation={validationSpy} authentication={authenticationSpy} />,
+    <Router history={history}>
+      <Login validation={validationSpy} authentication={authenticationSpy} />
+    </Router>,
   );
 
   return {
@@ -225,5 +231,15 @@ describe('Login Page', () => {
       'accessToken',
       authenticationSpy.account.accessToken,
     );
+  });
+
+  it('should go to signup page', async () => {
+    const { sut } = makeSut();
+    const signup = sut.getByTestId('signup-link');
+
+    fireEvent.click(signup);
+
+    expect(history.length).toBe(2);
+    expect(history.location.pathname).toBe('/signup');
   });
 });

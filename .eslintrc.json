@@ -49,7 +49,10 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": true
+        "devDependencies": true,
+        "optionalDependencies": true,
+        "peerDependencies": true,
+        "bundledDependencies": true
       }
     ],
     "@typescript-eslint/consistent-type-definitions": "off",

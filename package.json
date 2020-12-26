@@ -13,6 +13,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bundledDependencies": ["history"],
   "devDependencies": {
     "@testing-library/react": "^11.2.2",
     "@types/faker": "^5.1.5",

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Authentication } from '@/domain/usecases';
 import {
@@ -103,7 +104,9 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
             Entrar
           </Button>
 
-          <span className={classes.link}>Criar conta</span>
+          <Link data-testid="signup-link" to="/signup" className={classes.link}>
+            Criar conta
+          </Link>
 
           <FormStatus />
         </form>

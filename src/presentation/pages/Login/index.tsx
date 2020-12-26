@@ -22,7 +22,7 @@ const Login: React.FC<LoginProps> = ({ validation }) => {
     email: '',
     password: '',
     emailError: '',
-    passwordError: 'Campo obrigatório',
+    passwordError: '',
     mainError: '',
   });
 
@@ -34,7 +34,10 @@ const Login: React.FC<LoginProps> = ({ validation }) => {
   }, [state.email, validation]);
 
   useEffect(() => {
-    validation.validate('password', state.password);
+    setState(oldState => ({
+      ...oldState,
+      passwordError: validation.validate('password', state.password),
+    }));
   }, [state.password, validation]);
 
   return (

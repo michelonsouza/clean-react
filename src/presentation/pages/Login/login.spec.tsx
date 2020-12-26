@@ -124,4 +124,22 @@ describe('Login Page', () => {
     expect(passwordStatus.title).toBe(validationSpy.errorMessage);
     expect(passwordStatus.textContent).toBe('🔴');
   });
+
+  it('should show valid state if email Validation success', () => {
+    const {
+      sut: { getByTestId },
+      validationSpy,
+    } = makeSut();
+    const emailInput = getByTestId('email');
+    validationSpy.errorMessage = '';
+
+    fireEvent.input(emailInput, {
+      target: { value: faker.internet.email() },
+    });
+
+    const emailStatus = getByTestId('email-status');
+
+    expect(emailStatus.title).toBe('Tudo certo');
+    expect(emailStatus.textContent).toBe('🟢');
+  });
 });

@@ -20,6 +20,13 @@ describe('EmailValidation', () => {
 
     expect(error).toBeFalsy();
   });
+
+  it('should return falsy if email is empty', () => {
+    const sut = makeSut();
+    const error = sut.validate('');
+
+    expect(error).toBeFalsy();
+  });
 });
 
 export default {};

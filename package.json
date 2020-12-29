@@ -9,7 +9,7 @@
     "test:watch": "yarn test -- --watch",
     "test:staged": "yarn test -- --find-relatedTests",
     "test:ci": "yarn test -- --coverage",
-    "test:coveralls": "yarn test:ci && coverals < coverage/lcov.info",
+    "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
     "check": "npx npm-check -u -s"
   },
   "keywords": [

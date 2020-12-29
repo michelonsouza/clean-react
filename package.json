@@ -10,7 +10,7 @@
     "test:staged": "yarn test -- --find-relatedTests",
     "test:ci": "yarn test -- --coverage"
   },
-  "keywords": [],
+  "keywords": ["clean arquiteture", "manguinho", "udemy"],
   "author": "",
   "license": "ISC",
   "bundledDependencies": ["history"],

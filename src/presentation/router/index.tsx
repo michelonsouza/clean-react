@@ -3,13 +3,15 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import '@/presentation/styles/global.scss';
 
-import { Login } from '@/presentation/pages';
+interface RouterProps {
+  makeLogin: React.FC;
+}
 
-const Router: React.FC = () => {
+const Router: React.FC<RouterProps> = ({ makeLogin }) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/login" component={Login} />
+        <Route path="/login" component={makeLogin} />
       </Switch>
     </BrowserRouter>
   );

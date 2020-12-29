@@ -97,10 +97,16 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
           onSubmit={handleSubmit}
         >
           <h2>Login</h2>
-          <Input type="email" name="email" placeholder="Digite seu e-mail" />
+          <Input
+            type="email"
+            name="email"
+            autoComplete="username"
+            placeholder="Digite seu e-mail"
+          />
           <Input
             type="password"
             name="password"
+            autoComplete="current-password"
             placeholder="Digite sua senha"
           />
 

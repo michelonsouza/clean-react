@@ -15,7 +15,7 @@ const makeSut = (
     new FieldValidationSpy(fieldName),
   ],
 ): SutTypes => {
-  const sut = new ValidationComposite(fieldValidationsSpy);
+  const sut = ValidationComposite.build(fieldValidationsSpy);
 
   return {
     sut,

@@ -1,1 +1,1 @@
-[![Build Status](https://travis-ci.com/michelonsouza/clean-react.svg?branch=master)](https://travis-ci.com/michelonsouza/clean-react)
+[![js-airbnb-style](https://img.shields.io/badge/code%20style-airbnb-brightgreen)](https://github.com/airbnb/javascript) [![Build Status](https://travis-ci.com/michelonsouza/clean-react.svg?branch=master)](https://travis-ci.com/michelonsouza/clean-react) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/clean-react/badge.svg)](https://coveralls.io/github/michelonsouza/clean-react)

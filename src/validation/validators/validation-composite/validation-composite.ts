@@ -1,4 +1,4 @@
-import { Validation } from '@/presentation/protocols/validation';
+import { Validation } from '@/presentation/protocols';
 import { FieldValidation } from '@/validation/protocols';
 
 export class ValidationComposite implements Validation {

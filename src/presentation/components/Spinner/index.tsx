@@ -10,6 +10,7 @@ const Spinner: React.FC<SpinnerProps> = ({ variant, className, ...rest }) => {
   return (
     <div className={`${classes.spinner} ${className || ''}`} {...rest}>
       <div
+        data-testid="circle-point"
         className={`${classes.bounce1} ${variant ? classes[variant] : ''}`}
       />
       <div

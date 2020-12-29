@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import '@/presentation/styles/global.scss';
-
 interface RouterProps {
   makeLogin: React.FC;
 }

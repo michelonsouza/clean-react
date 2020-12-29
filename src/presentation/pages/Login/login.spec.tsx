@@ -14,7 +14,7 @@ import 'jest-localstorage-mock';
 import { InvalidCredentialsError } from '@/domain/errors';
 import { ValidationSpy, AuthenticationSpy } from '@/presentation/mocks';
 
-import Login from '.';
+import { Login } from '@/presentation/pages';
 
 type SutTypes = {
   sut: RenderResult;

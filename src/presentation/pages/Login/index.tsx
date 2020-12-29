@@ -88,7 +88,7 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
   }, [state.password, validation]);
 
   return (
-    <div className={classes.login}>
+    <div className={classes.login} data-testid="login-page">
       <LoginHeader />
       <FormContext.Provider value={{ state, setState }}>
         <form

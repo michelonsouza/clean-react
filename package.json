@@ -10,10 +10,16 @@
     "test:staged": "yarn test -- --find-relatedTests",
     "test:ci": "yarn test -- --coverage"
   },
-  "keywords": ["clean arquiteture", "manguinho", "udemy"],
+  "keywords": [
+    "clean arquiteture",
+    "manguinho",
+    "udemy"
+  ],
   "author": "",
   "license": "ISC",
-  "bundledDependencies": ["history"],
+  "bundledDependencies": [
+    "history"
+  ],
   "devDependencies": {
     "@testing-library/react": "^11.2.2",
     "@types/faker": "^5.1.5",

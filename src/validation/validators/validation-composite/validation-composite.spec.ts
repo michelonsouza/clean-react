@@ -46,5 +46,3 @@ describe('ValidationComposite', () => {
     expect(error).toBeFalsy();
   });
 });
-
-export default {};

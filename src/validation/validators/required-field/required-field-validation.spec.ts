@@ -21,5 +21,3 @@ describe('RequiredFieldValidation', () => {
     expect(error).toBeFalsy();
   });
 });
-
-export default {};

@@ -11,9 +11,9 @@ import {
 import faker from 'faker';
 import 'jest-localstorage-mock';
 
+import { InvalidCredentialsError } from '@/domain/errors';
 import { ValidationSpy, AuthenticationSpy } from '@/presentation/mocks';
 
-import { InvalidCredentialsError } from '@/domain/errors';
 import Login from '.';
 
 type SutTypes = {

@@ -28,5 +28,3 @@ describe('EmailValidation', () => {
     expect(error).toBeFalsy();
   });
 });
-
-export default {};

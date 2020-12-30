@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { Authentication } from '@/domain/usecases';
+import { Authentication, SaveAccessToken } from '@/domain/usecases';
 import {
   Input,
   Button,
@@ -17,9 +17,14 @@ import classes from './styles.scss';
 interface LoginProps {
   validation: Validation;
   authentication: Authentication;
+  saveAccessToken: SaveAccessToken;
 }
 
-const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
+const Login: React.FC<LoginProps> = ({
+  validation,
+  authentication,
+  saveAccessToken,
+}) => {
   const history = useHistory();
   const [state, setState] = useState({
     isLoading: false,
@@ -53,7 +58,7 @@ const Login: React.FC<LoginProps> = ({ validation, authentication }) => {
           password: state.password,
         });
 
-        localStorage.setItem('accessToken', account.accessToken);
+        await saveAccessToken.save(account.accessToken);
         history.replace('/');
       } catch (error) {
         setState(oldState => ({

@@ -75,6 +75,7 @@ const Login: React.FC<LoginProps> = ({
       state.isLoading,
       isDisabled,
       history,
+      saveAccessToken,
     ],
   );
 

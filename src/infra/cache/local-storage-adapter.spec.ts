@@ -3,13 +3,15 @@ import 'jest-localstorage-mock';
 
 import { LocalStorageAdapter } from './local-storage-adapter';
 
+const makeSut = (): LocalStorageAdapter => new LocalStorageAdapter();
+
 describe('LocalStorageAdapter', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
   it('should call localStorage with correct values', async () => {
-    const sut = new LocalStorageAdapter();
+    const sut = makeSut();
     const key = faker.database.column();
     const value = faker.random.word();
 
@@ -18,5 +20,3 @@ describe('LocalStorageAdapter', () => {
     expect(localStorage.setItem).toHaveBeenCalledWith(key, value);
   });
 });
-
-export default {};

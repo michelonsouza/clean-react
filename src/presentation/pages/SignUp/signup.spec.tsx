@@ -43,7 +43,11 @@ const makeSut = (errorMessage = ''): SutTypes => {
 
   const sut = render(
     <Router history={history}>
-      <SignUp validation={validationSpy} addAccount={addAccountSpy} />
+      <SignUp
+        validation={validationSpy}
+        addAccount={addAccountSpy}
+        saveAccessToken={saveAccessTokenMock}
+      />
     </Router>,
   );
   return {
@@ -206,5 +210,18 @@ describe('SingUp Page', () => {
 
     testElementText(sut, 'main-error', error.message);
     testElementText(sut, 'signup-button', 'Criar conta');
+  });
+
+  it('should call SaveAccessToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut();
+
+    await simulateValidSubmit(sut);
+
+    expect(saveAccessTokenMock.accessToken).toBe(
+      addAccountSpy.account.accessToken,
+    );
+
+    expect(history.length).toBe(1);
+    expect(history.location.pathname).toBe('/');
   });
 });

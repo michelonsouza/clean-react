@@ -201,7 +201,7 @@ describe('SingUp Page', () => {
     expect(addAccountSpy.callsCount).toBe(0);
   });
 
-  it('should present error if Authentication fails', async () => {
+  it('should present error if AddAccount fails', async () => {
     const { sut, addAccountSpy } = makeSut();
     const error = new EmailInUseError();
     jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error);
@@ -234,5 +234,15 @@ describe('SingUp Page', () => {
 
     testElementText(sut, 'main-error', error.message);
     testElementText(sut, 'signup-button', 'Criar conta');
+  });
+
+  it('should go to login page', () => {
+    const { sut } = makeSut();
+    const signInLink = sut.getByTestId('signin-link');
+
+    fireEvent.click(signInLink);
+
+    expect(history.length).toBe(2);
+    expect(history.location.pathname).toBe('/login');
   });
 });

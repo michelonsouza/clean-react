@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
-import { AddAccount } from '@/domain/usecases';
+import { AddAccount, SaveAccessToken } from '@/domain/usecases';
 import {
   Input,
   Button,
@@ -16,9 +17,15 @@ import classes from './styles.scss';
 interface SignUpProps {
   validation: Validation;
   addAccount: AddAccount;
+  saveAccessToken: SaveAccessToken;
 }
 
-const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }) => {
+const SignUp: React.FC<SignUpProps> = ({
+  validation,
+  addAccount,
+  saveAccessToken,
+}) => {
+  const history = useHistory();
   const [state, setState] = useState({
     isLoading: false,
     name: '',
@@ -60,12 +67,15 @@ const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }) => {
           isLoading: true,
         }));
 
-        await addAccount.add({
+        const account = await addAccount.add({
           name: state.name,
           email: state.email,
           password: state.password,
           passwordConfirmation: state.passwordConfirmation,
         });
+
+        await saveAccessToken.save(account.accessToken);
+        history.replace('/');
       } catch (error) {
         setState(oldState => ({
           ...oldState,
@@ -82,6 +92,8 @@ const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }) => {
       state.email,
       state.password,
       state.passwordConfirmation,
+      saveAccessToken,
+      history,
     ],
   );
 
@@ -161,9 +173,9 @@ const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }) => {
             Criar conta
           </Button>
 
-          <span data-testid="signup-link" className={classes.link}>
+          <Link to="/login" data-testid="signup-link" className={classes.link}>
             Já tenho uma conta
-          </span>
+          </Link>
 
           <FormStatus />
         </form>

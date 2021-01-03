@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 import {
   Input,
@@ -44,6 +44,22 @@ const SignUp: React.FC<SignUpProps> = ({ validation }) => {
     state.passwordConfirmationError,
   ]);
 
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      if (state.isLoading || isDisabled) {
+        return;
+      }
+
+      setState(oldState => ({
+        ...oldState,
+        isLoading: true,
+      }));
+    },
+    [state.isLoading, isDisabled],
+  );
+
   useEffect(() => {
     setState(oldState => ({
       ...oldState,
@@ -79,7 +95,11 @@ const SignUp: React.FC<SignUpProps> = ({ validation }) => {
     <div className={classes.signup}>
       <LoginHeader />
       <FormContext.Provider value={{ state, setState }}>
-        <form className={classes.form}>
+        <form
+          className={classes.form}
+          data-testid="signup-form"
+          onSubmit={handleSubmit}
+        >
           <h2>Criação de conta</h2>
           <Input
             data-testid="name"

@@ -17,16 +17,13 @@
     padding-left: 8px;
     padding-right: 24px;
 
-    &[type="password"],
-    &[type="email"] {
-      border: 1px solid $primaryLight;
-      line-height: 40px;
-      border-radius: 4px;
+    border: 1px solid $primaryLight;
+    line-height: 40px;
+    border-radius: 4px;
 
-      &:focus,
-      &:active {
-        outline-color: $primaryLight;
-      }
+    &:focus,
+    &:active {
+      outline-color: $primaryLight;
     }
   }
 }

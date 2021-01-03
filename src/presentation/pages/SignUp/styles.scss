@@ -1,0 +1,53 @@
+@import '../../styles/colors';
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    max-width: 90%;
+    background-color: $white;
+    padding: 40px 32px;
+    border-radius: 8px;
+    align-self: center;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.12);
+    margin: 0 auto;
+
+    @media screen and (min-width: 556px) {
+      margin: 0;
+    }
+
+    h2 {
+      color: $primaryDark;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    div + div {
+      margin-top: 16px;
+    }
+
+    button {
+      margin-top: 32px;
+    }
+
+    .link {
+      text-align: center;
+      color: $primary;
+      text-transform: lowercase;
+      margin-top: 16px;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

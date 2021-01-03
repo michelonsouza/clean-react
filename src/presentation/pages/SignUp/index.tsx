@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Input,
@@ -8,26 +8,67 @@ import {
   FormStatus,
 } from '@/presentation/components';
 import { FormContext } from '@/presentation/contexts';
+import { Validation } from '@/presentation/protocols';
 
 import classes from './styles.scss';
 
-const SignUp: React.FC = () => {
-  const [state] = useState({
+interface SignUpProps {
+  validation: Validation;
+}
+
+const SignUp: React.FC<SignUpProps> = ({ validation }) => {
+  const [state, setState] = useState({
     isLoading: false,
-    nameError: 'Campo Obrigatório',
-    emailError: 'Campo Obrigatório',
-    passwordError: 'Campo Obrigatório',
-    passwordConfirmationError: 'Campo Obrigatório',
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+    nameError: '',
+    emailError: '',
+    passwordError: '',
+    passwordConfirmationError: '',
     mainError: '',
   });
+
+  useEffect(() => {
+    setState(oldState => ({
+      ...oldState,
+      nameError: validation.validate('name', state.name),
+    }));
+  }, [state.name, validation]);
+
+  useEffect(() => {
+    setState(oldState => ({
+      ...oldState,
+      emailError: validation.validate('email', state.email),
+    }));
+  }, [state.email, validation]);
+
+  useEffect(() => {
+    setState(oldState => ({
+      ...oldState,
+      passwordError: validation.validate('password', state.password),
+    }));
+  }, [state.password, validation]);
+
+  useEffect(() => {
+    setState(oldState => ({
+      ...oldState,
+      passwordConfirmationError: validation.validate(
+        'passwordConfirmation',
+        state.passwordConfirmation,
+      ),
+    }));
+  }, [state.passwordConfirmation, validation]);
 
   return (
     <div className={classes.signup}>
       <LoginHeader />
-      <FormContext.Provider value={{ state }}>
+      <FormContext.Provider value={{ state, setState }}>
         <form className={classes.form}>
           <h2>Criação de conta</h2>
           <Input
+            data-testid="name"
             type="text"
             name="name"
             autoComplete="username"

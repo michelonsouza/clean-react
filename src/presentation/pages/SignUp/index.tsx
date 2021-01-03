@@ -173,7 +173,7 @@ const SignUp: React.FC<SignUpProps> = ({
             Criar conta
           </Button>
 
-          <Link to="/login" data-testid="signup-link" className={classes.link}>
+          <Link to="/login" data-testid="signin-link" className={classes.link}>
             Já tenho uma conta
           </Link>
 

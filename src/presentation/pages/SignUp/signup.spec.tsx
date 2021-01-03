@@ -175,11 +175,19 @@ describe('SingUp Page', () => {
     });
   });
 
-  it('should call Authentication only once', async () => {
+  it('should call AddAccount only once', async () => {
     const { sut, addAccountSpy } = makeSut();
     await simulateValidSubmit(sut);
     await simulateValidSubmit(sut);
 
     expect(addAccountSpy.callsCount).toBe(1);
+  });
+
+  it('should not call AddAccount if form is invalid', async () => {
+    const { sut, addAccountSpy } = makeSut(faker.random.words());
+
+    await simulateValidSubmit(sut);
+
+    expect(addAccountSpy.callsCount).toBe(0);
   });
 });

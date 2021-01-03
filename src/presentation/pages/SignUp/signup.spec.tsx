@@ -12,6 +12,7 @@ import faker from 'faker';
 
 import {
   ValidationSpy,
+  AddAccountSpy,
   populateField,
   testChildCount,
   testButtonIsDisabled,
@@ -27,20 +28,23 @@ const history = createMemoryHistory({
 type SutTypes = {
   sut: RenderResult;
   validationSpy: ValidationSpy;
+  addAccountSpy: AddAccountSpy;
 };
 
 const makeSut = (errorMessage = ''): SutTypes => {
   const validationSpy = new ValidationSpy();
+  const addAccountSpy = new AddAccountSpy();
   validationSpy.errorMessage = errorMessage;
 
   const sut = render(
     <Router history={history}>
-      <SignUp validation={validationSpy} />
+      <SignUp validation={validationSpy} addAccount={addAccountSpy} />
     </Router>,
   );
   return {
     sut,
     validationSpy,
+    addAccountSpy,
   };
 };
 
@@ -153,5 +157,21 @@ describe('SingUp Page', () => {
     await simulateValidSubmit(sut);
 
     testElementExists(sut, 'spinner-loading');
+  });
+
+  it('should call AddAccount with correct values', async () => {
+    const { sut, addAccountSpy } = makeSut();
+    const name = faker.name.findName();
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+
+    await simulateValidSubmit(sut, name, email, password);
+
+    expect(addAccountSpy.params).toEqual({
+      name,
+      email,
+      password,
+      passwordConfirmation: password,
+    });
   });
 });

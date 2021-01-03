@@ -74,4 +74,11 @@ describe('SingUp Page', () => {
     populateField(sut, 'email');
     testStatusForField(sut, 'email', validationSpy.errorMessage);
   });
+
+  it('should show password error if Validation fails', () => {
+    const { sut, validationSpy } = makeSut(faker.random.words());
+
+    populateField(sut, 'password');
+    testStatusForField(sut, 'password', validationSpy.errorMessage);
+  });
 });

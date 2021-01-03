@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import {
   Input,
@@ -29,6 +29,20 @@ const SignUp: React.FC<SignUpProps> = ({ validation }) => {
     passwordConfirmationError: '',
     mainError: '',
   });
+
+  const isDisabled = useMemo(() => {
+    return !!(
+      state.nameError ||
+      state.emailError ||
+      state.passwordError ||
+      state.passwordConfirmationError
+    );
+  }, [
+    state.nameError,
+    state.emailError,
+    state.passwordError,
+    state.passwordConfirmationError,
+  ]);
 
   useEffect(() => {
     setState(oldState => ({
@@ -93,7 +107,12 @@ const SignUp: React.FC<SignUpProps> = ({ validation }) => {
             placeholder="Repita sua senha"
           />
 
-          <Button type="submit" disabled data-testid="signup-button">
+          <Button
+            type="submit"
+            disabled={isDisabled}
+            loading={state.isLoading}
+            data-testid="signup-button"
+          >
             Criar conta
           </Button>
 

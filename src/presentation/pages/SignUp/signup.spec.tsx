@@ -1,18 +1,14 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import {
-  cleanup,
-  render,
-  fireEvent,
-  RenderResult,
-} from '@testing-library/react';
+import { cleanup, render, RenderResult } from '@testing-library/react';
 import faker from 'faker';
 
 import {
   testChildCount,
   testButtonIsDisabled,
   testStatusForField,
+  populateField,
   ValidationSpy,
 } from '@/presentation/mocks';
 import { SignUp } from '@/presentation/pages';
@@ -39,15 +35,6 @@ const makeSut = (errorMessage = ''): SutTypes => {
     sut,
     validationSpy,
   };
-};
-
-const populateField = (
-  { getByTestId }: RenderResult,
-  elementTestId: string,
-  value = faker.random.word(),
-): void => {
-  const inputElement = getByTestId(elementTestId) as HTMLInputElement;
-  fireEvent.input(inputElement, { target: { value } });
 };
 
 describe('SingUp Page', () => {

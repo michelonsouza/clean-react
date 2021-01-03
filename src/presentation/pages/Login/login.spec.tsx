@@ -18,6 +18,7 @@ import {
   testChildCount,
   testButtonIsDisabled,
   testStatusForField,
+  populateField,
 } from '@/presentation/mocks';
 
 import { Login } from '@/presentation/pages';
@@ -57,29 +58,13 @@ const makeSut = (errorMessage = ''): SutTypes => {
   };
 };
 
-const populateEmailField = (
-  { getByTestId }: RenderResult,
-  email = faker.internet.email(),
-): void => {
-  const emailInput = getByTestId('email') as HTMLInputElement;
-  fireEvent.input(emailInput, { target: { value: email } });
-};
-
-const populatePasswordField = (
-  { getByTestId }: RenderResult,
-  password = faker.internet.password(),
-): void => {
-  const passwordInput = getByTestId('password') as HTMLInputElement;
-  fireEvent.input(passwordInput, { target: { value: password } });
-};
-
 const simulateValidSubmit = async (
   sut: RenderResult,
   email = faker.internet.email(),
   password = faker.internet.password(),
 ): Promise<void> => {
-  populateEmailField(sut, email);
-  populatePasswordField(sut, password);
+  populateField(sut, 'email', email);
+  populateField(sut, 'password', password);
 
   const form = sut.getByTestId('login-form') as HTMLButtonElement;
 
@@ -122,7 +107,7 @@ describe('Login Page', () => {
     const { sut, validationSpy } = makeSut();
     const email = faker.internet.email();
 
-    populateEmailField(sut, email);
+    populateField(sut, 'email', email);
 
     expect(validationSpy.fieldName).toBe('email');
     expect(validationSpy.fieldValue).toBe(email);
@@ -132,7 +117,7 @@ describe('Login Page', () => {
     const { sut, validationSpy } = makeSut();
     const password = faker.internet.password();
 
-    populatePasswordField(sut, password);
+    populateField(sut, 'password', password);
 
     expect(validationSpy.fieldName).toBe('password');
     expect(validationSpy.fieldValue).toBe(password);
@@ -141,28 +126,28 @@ describe('Login Page', () => {
   it('should email error if validation fails', () => {
     const { sut, validationSpy } = makeSut(faker.random.words());
 
-    populateEmailField(sut);
+    populateField(sut, 'email');
     testStatusForField(sut, 'email', validationSpy.errorMessage);
   });
 
   it('should password error if validation fails', () => {
     const { sut, validationSpy } = makeSut(faker.random.words());
 
-    populatePasswordField(sut);
+    populateField(sut, 'password');
     testStatusForField(sut, 'password', validationSpy.errorMessage);
   });
 
   it('should show valid state if email Validation success', () => {
     const { sut } = makeSut();
 
-    populateEmailField(sut);
+    populateField(sut, 'email');
     testStatusForField(sut, 'email');
   });
 
   it('should show valid state if password Validation success', () => {
     const { sut } = makeSut();
 
-    populatePasswordField(sut);
+    populateField(sut, 'password');
     testStatusForField(sut, 'password');
   });
 

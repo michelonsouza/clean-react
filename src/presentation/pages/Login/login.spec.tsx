@@ -15,10 +15,11 @@ import {
   ValidationSpy,
   AuthenticationSpy,
   SaveAccessTokenMock,
+  populateField,
   testChildCount,
   testButtonIsDisabled,
   testStatusForField,
-  populateField,
+  testElementText,
 } from '@/presentation/mocks';
 
 import { Login } from '@/presentation/pages';
@@ -71,15 +72,6 @@ const simulateValidSubmit = async (
   fireEvent.submit(form);
 
   await waitFor(() => form);
-};
-
-const testElementText = (
-  sut: RenderResult,
-  elementTestId: string,
-  text: string,
-): void => {
-  const element = sut.getByTestId(elementTestId);
-  expect(element.textContent).toBe(text);
 };
 
 describe('Login Page', () => {

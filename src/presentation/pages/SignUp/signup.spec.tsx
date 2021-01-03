@@ -14,12 +14,13 @@ import { EmailInUseError } from '@/domain/errors';
 import {
   ValidationSpy,
   AddAccountSpy,
+  SaveAccessTokenMock,
   populateField,
   testChildCount,
   testButtonIsDisabled,
   testStatusForField,
   testElementExists,
-  SaveAccessTokenMock,
+  testElementText,
 } from '@/presentation/mocks';
 import { SignUp } from '@/presentation/pages';
 
@@ -69,15 +70,6 @@ const simulateValidSubmit = async (
   fireEvent.submit(form);
 
   await waitFor(() => form);
-};
-
-const testElementText = (
-  sut: RenderResult,
-  elementTestId: string,
-  text: string,
-): void => {
-  const element = sut.getByTestId(elementTestId);
-  expect(element.textContent).toBe(text);
 };
 
 describe('SingUp Page', () => {

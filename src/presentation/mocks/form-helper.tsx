@@ -44,3 +44,12 @@ export const testElementExists = (
 ): void => {
   expect(sut.getByTestId(elementTestId)).toBeTruthy();
 };
+
+export const testElementText = (
+  sut: RenderResult,
+  elementTestId: string,
+  text: string,
+): void => {
+  const element = sut.getByTestId(elementTestId);
+  expect(element.textContent).toBe(text);
+};

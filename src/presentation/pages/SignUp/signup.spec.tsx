@@ -10,6 +10,7 @@ import {
 } from '@testing-library/react';
 import faker from 'faker';
 
+import { EmailInUseError } from '@/domain/errors';
 import {
   ValidationSpy,
   AddAccountSpy,
@@ -18,6 +19,7 @@ import {
   testButtonIsDisabled,
   testStatusForField,
   testElementExists,
+  SaveAccessTokenMock,
 } from '@/presentation/mocks';
 import { SignUp } from '@/presentation/pages';
 
@@ -29,11 +31,13 @@ type SutTypes = {
   sut: RenderResult;
   validationSpy: ValidationSpy;
   addAccountSpy: AddAccountSpy;
+  saveAccessTokenMock: SaveAccessTokenMock;
 };
 
 const makeSut = (errorMessage = ''): SutTypes => {
   const validationSpy = new ValidationSpy();
   const addAccountSpy = new AddAccountSpy();
+  const saveAccessTokenMock = new SaveAccessTokenMock();
   validationSpy.errorMessage = errorMessage;
 
   const sut = render(
@@ -45,6 +49,7 @@ const makeSut = (errorMessage = ''): SutTypes => {
     sut,
     validationSpy,
     addAccountSpy,
+    saveAccessTokenMock,
   };
 };
 
@@ -64,6 +69,15 @@ const simulateValidSubmit = async (
   fireEvent.submit(form);
 
   await waitFor(() => form);
+};
+
+const testElementText = (
+  sut: RenderResult,
+  elementTestId: string,
+  text: string,
+): void => {
+  const element = sut.getByTestId(elementTestId);
+  expect(element.textContent).toBe(text);
 };
 
 describe('SingUp Page', () => {
@@ -189,5 +203,16 @@ describe('SingUp Page', () => {
     await simulateValidSubmit(sut);
 
     expect(addAccountSpy.callsCount).toBe(0);
+  });
+
+  it('should present error if Authentication fails', async () => {
+    const { sut, addAccountSpy } = makeSut();
+    const error = new EmailInUseError();
+    jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error);
+
+    await simulateValidSubmit(sut);
+
+    testElementText(sut, 'main-error', error.message);
+    testElementText(sut, 'signup-button', 'Criar conta');
   });
 });

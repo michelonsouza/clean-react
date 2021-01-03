@@ -15,6 +15,9 @@ import {
   ValidationSpy,
   AuthenticationSpy,
   SaveAccessTokenMock,
+  testChildCount,
+  testButtonIsDisabled,
+  testStatusForField,
 } from '@/presentation/mocks';
 
 import { Login } from '@/presentation/pages';
@@ -85,16 +88,6 @@ const simulateValidSubmit = async (
   await waitFor(() => form);
 };
 
-const testStatusForField = (
-  sut: RenderResult,
-  fieldName: string,
-  validationError?: string,
-): void => {
-  const status = sut.getByTestId(`${fieldName}-status`);
-  expect(status.title).toBe(validationError || 'Tudo certo');
-  expect(status.textContent).toBe(validationError ? '🔴' : '🟢');
-};
-
 const testElementText = (
   sut: RenderResult,
   elementTestId: string,
@@ -104,25 +97,12 @@ const testElementText = (
   expect(element.textContent).toBe(text);
 };
 
-const testButtonIsDisabled = (
-  sut: RenderResult,
-  buttonTestId: string,
-  isDisabled = true,
-): void => {
-  const button = sut.getByTestId(buttonTestId) as HTMLButtonElement;
-  expect(button.disabled).toBe(isDisabled);
-};
-
 describe('Login Page', () => {
   afterEach(cleanup);
 
   it('should not render error message on start', () => {
-    const {
-      sut: { getByTestId },
-    } = makeSut();
-    const errorWrap = getByTestId('error-wrap');
-
-    expect(errorWrap.childElementCount).toBe(0);
+    const { sut } = makeSut();
+    testChildCount(sut, 'error-wrap', 0);
   });
 
   it('should be disabled button on start', () => {

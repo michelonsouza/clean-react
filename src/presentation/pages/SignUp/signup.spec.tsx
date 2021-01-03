@@ -2,8 +2,12 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, RenderResult } from '@testing-library/react';
-import faker from 'faker';
 
+import {
+  testChildCount,
+  testButtonIsDisabled,
+  testStatusForField,
+} from '@/presentation/mocks';
 import { SignUp } from '@/presentation/pages';
 
 const history = createMemoryHistory({
@@ -23,34 +27,6 @@ const makeSut = (): SutTypes => {
   return {
     sut,
   };
-};
-
-const testChildCount = (
-  sut: RenderResult,
-  elementTestId: string,
-  count: number,
-): void => {
-  const element = sut.getByTestId(elementTestId);
-  expect(element.childElementCount).toBe(count);
-};
-
-const testButtonIsDisabled = (
-  sut: RenderResult,
-  buttonTestId: string,
-  isDisabled = true,
-): void => {
-  const button = sut.getByTestId(buttonTestId) as HTMLButtonElement;
-  expect(button.disabled).toBe(isDisabled);
-};
-
-const testStatusForField = (
-  sut: RenderResult,
-  fieldName: string,
-  validationError?: string,
-): void => {
-  const status = sut.getByTestId(`${fieldName}-status`);
-  expect(status.title).toBe(validationError || 'Tudo certo');
-  expect(status.textContent).toBe(validationError ? '🔴' : '🟢');
 };
 
 describe('SingUp Page', () => {

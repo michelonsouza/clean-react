@@ -5,11 +5,11 @@ import { cleanup, render, RenderResult } from '@testing-library/react';
 import faker from 'faker';
 
 import {
+  ValidationSpy,
   testChildCount,
   testButtonIsDisabled,
   testStatusForField,
   populateField,
-  ValidationSpy,
 } from '@/presentation/mocks';
 import { SignUp } from '@/presentation/pages';
 
@@ -87,5 +87,29 @@ describe('SingUp Page', () => {
 
     populateField(sut, 'passwordConfirmation');
     testStatusForField(sut, 'passwordConfirmation', validationSpy.errorMessage);
+  });
+
+  it('should show valid name state if Validation succeeds', () => {
+    const { sut } = makeSut();
+    populateField(sut, 'name');
+    testStatusForField(sut, 'name');
+  });
+
+  it('should show valid email state if Validation succeeds', () => {
+    const { sut } = makeSut();
+    populateField(sut, 'email');
+    testStatusForField(sut, 'email');
+  });
+
+  it('should show valid password state if Validation succeeds', () => {
+    const { sut } = makeSut();
+    populateField(sut, 'password');
+    testStatusForField(sut, 'password');
+  });
+
+  it('should show valid passwordConfirmation state if Validation succeeds', () => {
+    const { sut } = makeSut();
+    populateField(sut, 'passwordConfirmation');
+    testStatusForField(sut, 'passwordConfirmation');
   });
 });

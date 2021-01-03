@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
+import { AddAccount } from '@/domain/usecases';
 import {
   Input,
   Button,
@@ -14,9 +15,10 @@ import classes from './styles.scss';
 
 interface SignUpProps {
   validation: Validation;
+  addAccount: AddAccount;
 }
 
-const SignUp: React.FC<SignUpProps> = ({ validation }) => {
+const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }) => {
   const [state, setState] = useState({
     isLoading: false,
     name: '',
@@ -45,7 +47,7 @@ const SignUp: React.FC<SignUpProps> = ({ validation }) => {
   ]);
 
   const handleSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
+    async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
       if (state.isLoading || isDisabled) {
@@ -56,8 +58,23 @@ const SignUp: React.FC<SignUpProps> = ({ validation }) => {
         ...oldState,
         isLoading: true,
       }));
+
+      await addAccount.add({
+        name: state.name,
+        email: state.email,
+        password: state.password,
+        passwordConfirmation: state.passwordConfirmation,
+      });
     },
-    [state.isLoading, isDisabled],
+    [
+      state.isLoading,
+      isDisabled,
+      addAccount,
+      state.name,
+      state.email,
+      state.password,
+      state.passwordConfirmation,
+    ],
   );
 
   useEffect(() => {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 import {
   Input,
@@ -13,10 +12,19 @@ import { FormContext } from '@/presentation/contexts';
 import classes from './styles.scss';
 
 const SignUp: React.FC = () => {
+  const [state] = useState({
+    isLoading: false,
+    nameError: 'Campo Obrigatório',
+    emailError: 'Campo Obrigatório',
+    passwordError: 'Campo Obrigatório',
+    passwordConfirmationError: 'Campo Obrigatório',
+    mainError: '',
+  });
+
   return (
     <div className={classes.signup}>
       <LoginHeader />
-      <FormContext.Provider value={{ state: {} }}>
+      <FormContext.Provider value={{ state }}>
         <form className={classes.form}>
           <h2>Criação de conta</h2>
           <Input
@@ -44,11 +52,13 @@ const SignUp: React.FC = () => {
             placeholder="Repita sua senha"
           />
 
-          <Button type="submit">Criar conta</Button>
+          <Button type="submit" disabled data-testid="signup-button">
+            Criar conta
+          </Button>
 
-          <Link data-testid="signup-link" to="/login" className={classes.link}>
+          <span data-testid="signup-link" className={classes.link}>
             Já tenho uma conta
-          </Link>
+          </span>
 
           <FormStatus />
         </form>

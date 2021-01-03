@@ -12,10 +12,11 @@ import faker from 'faker';
 
 import {
   ValidationSpy,
+  populateField,
   testChildCount,
   testButtonIsDisabled,
   testStatusForField,
-  populateField,
+  testElementExists,
 } from '@/presentation/mocks';
 import { SignUp } from '@/presentation/pages';
 
@@ -59,10 +60,6 @@ const simulateValidSubmit = async (
   fireEvent.submit(form);
 
   await waitFor(() => form);
-};
-
-const testElementExists = (sut: RenderResult, elementTestId: string) => {
-  expect(sut.getByTestId(elementTestId)).toBeTruthy();
 };
 
 describe('SingUp Page', () => {

@@ -46,7 +46,7 @@ describe('SingUp Page', () => {
   });
 
   it('should be disabled button on start', () => {
-    const { sut } = makeSut();
+    const { sut } = makeSut(faker.random.word());
 
     testButtonIsDisabled(sut, 'signup-button');
   });
@@ -111,5 +111,15 @@ describe('SingUp Page', () => {
     const { sut } = makeSut();
     populateField(sut, 'passwordConfirmation');
     testStatusForField(sut, 'passwordConfirmation');
+  });
+
+  it('should enable submit button if form is valid', () => {
+    const { sut } = makeSut();
+    populateField(sut, 'name');
+    populateField(sut, 'email');
+    populateField(sut, 'password');
+    populateField(sut, 'passwordConfirmation');
+
+    testButtonIsDisabled(sut, 'signup-button', false);
   });
 });

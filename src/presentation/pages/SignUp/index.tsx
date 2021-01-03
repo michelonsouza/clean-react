@@ -50,21 +50,29 @@ const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }) => {
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      if (state.isLoading || isDisabled) {
-        return;
+      try {
+        if (state.isLoading || isDisabled) {
+          return;
+        }
+
+        setState(oldState => ({
+          ...oldState,
+          isLoading: true,
+        }));
+
+        await addAccount.add({
+          name: state.name,
+          email: state.email,
+          password: state.password,
+          passwordConfirmation: state.passwordConfirmation,
+        });
+      } catch (error) {
+        setState(oldState => ({
+          ...oldState,
+          isLoading: false,
+          mainError: error.message,
+        }));
       }
-
-      setState(oldState => ({
-        ...oldState,
-        isLoading: true,
-      }));
-
-      await addAccount.add({
-        name: state.name,
-        email: state.email,
-        password: state.password,
-        passwordConfirmation: state.passwordConfirmation,
-      });
     },
     [
       state.isLoading,

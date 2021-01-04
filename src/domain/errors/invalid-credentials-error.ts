@@ -1,4 +1,4 @@
-export class EmailInUseError extends Error {
+export class InvalidCredentialsError extends Error {
   /* istanbul ignore next */
   constructor() {
     super('Credenciais inválidas');

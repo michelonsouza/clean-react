@@ -75,7 +75,7 @@ const simulateValidSubmit = async (
 };
 
 describe('Login Page', () => {
-  afterEach(cleanup);
+  afterEach(() => cleanup());
 
   it('should not render error message on start', () => {
     const { sut } = makeSut();
@@ -88,13 +88,6 @@ describe('Login Page', () => {
     testButtonIsDisabled(sut, 'submit-button');
   });
 
-  it('should be input status as required on start', () => {
-    const { sut, validationSpy } = makeSut(faker.random.words());
-
-    testStatusForField(sut, 'email', validationSpy.errorMessage);
-    testStatusForField(sut, 'password', validationSpy.errorMessage);
-  });
-
   it('should call validation with correct email', () => {
     const { sut, validationSpy } = makeSut();
     const email = faker.internet.email();
@@ -103,6 +96,13 @@ describe('Login Page', () => {
 
     expect(validationSpy.fieldName).toBe('email');
     expect(validationSpy.fieldValue).toBe(email);
+  });
+
+  it('should be input status as required on start', () => {
+    const { sut, validationSpy } = makeSut(faker.random.words());
+
+    testStatusForField(sut, 'email', validationSpy.errorMessage);
+    testStatusForField(sut, 'password', validationSpy.errorMessage);
   });
 
   it('should call validation with correct password', () => {

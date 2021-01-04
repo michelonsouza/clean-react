@@ -39,6 +39,13 @@ const Login: React.FC<LoginProps> = ({
     return !!(state.emailError || state.passwordError);
   }, [state.emailError, state.passwordError]);
 
+  const formData = useMemo(() => {
+    return {
+      email: state.email,
+      password: state.password,
+    };
+  }, [state.email, state.password]);
+
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
       event.preventDefault();
@@ -82,15 +89,17 @@ const Login: React.FC<LoginProps> = ({
   useEffect(() => {
     setState(oldState => ({
       ...oldState,
-      emailError: validation.validate('email', state.email),
+      emailError: validation.validate('email', formData),
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.email, validation]);
 
   useEffect(() => {
     setState(oldState => ({
       ...oldState,
-      passwordError: validation.validate('password', state.password),
+      passwordError: validation.validate('password', formData),
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.password, validation]);
 
   return (

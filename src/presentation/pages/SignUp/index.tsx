@@ -53,6 +53,15 @@ const SignUp: React.FC<SignUpProps> = ({
     state.passwordConfirmationError,
   ]);
 
+  const formData = useMemo(() => {
+    return {
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      passwordConfirmation: state.passwordConfirmation,
+    };
+  }, [state.name, state.email, state.password, state.passwordConfirmation]);
+
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -100,22 +109,25 @@ const SignUp: React.FC<SignUpProps> = ({
   useEffect(() => {
     setState(oldState => ({
       ...oldState,
-      nameError: validation.validate('name', state.name),
+      nameError: validation.validate('name', formData),
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.name, validation]);
 
   useEffect(() => {
     setState(oldState => ({
       ...oldState,
-      emailError: validation.validate('email', state.email),
+      emailError: validation.validate('email', formData),
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.email, validation]);
 
   useEffect(() => {
     setState(oldState => ({
       ...oldState,
-      passwordError: validation.validate('password', state.password),
+      passwordError: validation.validate('password', formData),
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.password, validation]);
 
   useEffect(() => {
@@ -123,9 +135,10 @@ const SignUp: React.FC<SignUpProps> = ({
       ...oldState,
       passwordConfirmationError: validation.validate(
         'passwordConfirmation',
-        state.passwordConfirmation,
+        formData,
       ),
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.passwordConfirmation, validation]);
 
   return (
